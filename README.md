@@ -94,5 +94,7 @@ This gap between overall accuracy (77.9%) and diabetic-class recall (62%) is the
 
 \- Tune the classification threshold specifically to improve recall for the diabetic class
 
-\- Try feature engineering (e.g., BMI categories,
+\- Try feature engineering (e.g., BMI categories, glucose-to-insulin ratios)
+
+\- Add cross-validation instead of a single train/test split for more robust evaluation
 
