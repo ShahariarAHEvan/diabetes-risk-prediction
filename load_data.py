@@ -26,3 +26,54 @@ for col in columns_with_missing:
 
 print("\nAfter cleaning:")
 print((df == 0).sum())
+
+from sklearn.model_selection import train_test_split
+
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print(f"\nTraining set size: {X_train.shape[0]}")
+print(f"Testing set size: {X_test.shape[0]}")
+
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+train_accuracy = model.score(X_train, y_train)
+test_accuracy = model.score(X_test, y_test)
+
+print(f"\nLogistic Regression:")
+print(f"Training accuracy: {train_accuracy:.3f}")
+print(f"Testing accuracy: {test_accuracy:.3f}")
+
+from sklearn.ensemble import RandomForestClassifier
+
+rf_model = RandomForestClassifier(random_state=42)
+rf_model.fit(X_train, y_train)
+
+rf_train_accuracy = rf_model.score(X_train, y_train)
+rf_test_accuracy = rf_model.score(X_test, y_test)
+
+print(f"\nRandom Forest:")
+print(f"Training accuracy: {rf_train_accuracy:.3f}")
+print(f"Testing accuracy: {rf_test_accuracy:.3f}")
+
+rf_model_tuned = RandomForestClassifier(
+    n_estimators=100,
+    max_depth=5,
+    min_samples_leaf=5,
+    random_state=42
+)
+rf_model_tuned.fit(X_train, y_train)
+
+rf_tuned_train_accuracy = rf_model_tuned.score(X_train, y_train)
+rf_tuned_test_accuracy = rf_model_tuned.score(X_test, y_test)
+
+print(f"\nRandom Forest (tuned):")
+print(f"Training accuracy: {rf_tuned_train_accuracy:.3f}")
+print(f"Testing accuracy: {rf_tuned_test_accuracy:.3f}")
