@@ -77,3 +77,13 @@ rf_tuned_test_accuracy = rf_model_tuned.score(X_test, y_test)
 print(f"\nRandom Forest (tuned):")
 print(f"Training accuracy: {rf_tuned_train_accuracy:.3f}")
 print(f"Testing accuracy: {rf_tuned_test_accuracy:.3f}")
+
+from sklearn.metrics import classification_report, confusion_matrix
+
+y_pred = rf_model_tuned.predict(X_test)
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
